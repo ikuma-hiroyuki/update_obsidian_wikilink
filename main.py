@@ -1,5 +1,5 @@
-import os
 import argparse
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -11,10 +11,6 @@ parser = argparse.ArgumentParser(description='Update wikilinks in markdown files
 parser.add_argument('--all', '-a', action='store_true', help='Update all wikilinks in all files')
 parser.add_argument('--specific', '-s', action='store_true',
                     help='Update wikilinks in all files with a specific wiki file.')
-
-load_dotenv()
-base_dir = Path(os.getenv("BASE_PATH"))
-files = [p for p in base_dir.rglob('*.md')]
 
 
 def all_update():
@@ -33,6 +29,10 @@ def specific_update(wiki_file_path):
 
 if __name__ == '__main__':
     args = parser.parse_args()
+    load_dotenv()
+    base_dir = Path(os.getenv("BASE_PATH"))
+    files = [p for p in base_dir.rglob('*.md')]
+
     if args.all:
         all_update()
     elif args.specific:
