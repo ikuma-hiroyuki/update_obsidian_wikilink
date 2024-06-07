@@ -38,11 +38,11 @@ if __name__ == '__main__':
     if args.all:
         all_update()
     elif args.specific:
-        target_wiki_file = input('Please specify the target wiki file path: ')
+        target_wiki_file = input('Please specify the target wiki file path:\n')
         specific_update(target_wiki_file)
     elif args.one:
-        target_file = input('Please enter the file path to be replaced.')
-        target_wiki_file = input('Please enter the file path of the Wiki link update source.: ')
+        target_file = input('Please enter the file path to be replaced:\n')
+        target_wiki_file = input('Please enter the file path of the Wiki link update source:\n')
         target_file_path = base_dir / target_file
         target_wiki_file_path = base_dir / target_wiki_file
         update_wikilinks(WikiSource(target_wiki_file_path), target_file_path)
