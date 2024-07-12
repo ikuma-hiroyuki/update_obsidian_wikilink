@@ -7,11 +7,12 @@ from dotenv import load_dotenv
 from update_link import update_wikilinks
 from wiki_source import wiki_sources, WikiSource
 
-parser = argparse.ArgumentParser(description='Update wikilinks in markdown files')
-parser.add_argument('--all', '-a', action='store_true', help='Update all wikilinks in all files')
+parser = argparse.ArgumentParser(description='マークダウンファイル内のウィキリンクを更新する')
+parser.add_argument('--all', '-a', action='store_true', help='多対多でウィキリンクを更新するか')
 parser.add_argument('--specific', '-s', action='store_true',
-                    help='Update wikilinks in all files with a specific wiki file.')
-parser.add_argument('--one', '-o', action='store_true', help='Update one wikilinks in one file')
+                    help='一対多で更新するか(全てのファイルを対象に、指定したファイル名・エイリアス名に合致する文字列をウィキリンク化するか)')
+parser.add_argument('--one', '-o', action='store_true',
+                    help='一対一で更新するか(指定したファイル内の指定した文字列をウィキリンク化するか)')
 
 
 def all_update():
@@ -38,13 +39,13 @@ if __name__ == '__main__':
     if args.all:
         all_update()
     elif args.specific:
-        target_wiki_file = input('Please specify the target wiki file path:\n')
+        target_wiki_file = input('ウィキリンク化したいファイルパスを入力してください:\n')
         specific_update(target_wiki_file)
     elif args.one:
-        target_file = input('Please enter the file path to be replaced:\n')
-        target_wiki_file = input('Please enter the file path of the Wiki link update source:\n')
+        target_file = input('被更新対象ファイルのパスを入力してください:\n')
+        target_wiki_file = input(':\n')
         target_file_path = base_dir / target_file
         target_wiki_file_path = base_dir / target_wiki_file
         update_wikilinks(WikiSource(target_wiki_file_path), target_file_path)
     else:
-        print('Please specify the option with --all or --specific or --one.')
+        print('オプションは --all または --specified または --one で指定してください。')
