@@ -47,8 +47,10 @@ class WikiSource:
         return aliases
 
 
-wiki_sources = [WikiSource(p) for p in base_path.rglob('*.md')]
+def get_wiki_sources():
+    return [WikiSource(p) for p in base_path.rglob('*.md')]
+
 
 if __name__ == '__main__':
-    for wiki_file in wiki_sources:
+    for wiki_file in get_wiki_sources():
         print(wiki_file.title, wiki_file.target_words)

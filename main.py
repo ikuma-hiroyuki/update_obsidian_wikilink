@@ -5,7 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from update_link import update_wikilinks
-from wiki_source import wiki_sources, WikiSource
+from wiki_source import get_wiki_sources, WikiSource
 
 parser = argparse.ArgumentParser(description='マークダウンファイル内のウィキリンクを更新する')
 parser.add_argument('--all', '-a', action='store_true', help='多対多でウィキリンクを更新するか')
@@ -18,7 +18,7 @@ parser.add_argument('--one', '-o', action='store_true',
 def all_update():
     """全てのファイルに対して全てのWikiリンクの更新を行う"""
     for file in files:
-        for wiki_file in wiki_sources:
+        for wiki_file in get_wiki_sources():
             update_wikilinks(wiki_file, file)
 
 
